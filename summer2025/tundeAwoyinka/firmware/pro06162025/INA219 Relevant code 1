@@ -1,0 +1,37 @@
+## Code to read Sensor Voltage, Current and Power (for adafruit CircuitPython-based) 
+import time
+import board
+import busio
+import adafruit_ina219
+from adafruit_ina219 import INA219
+
+# Set up I2C bus
+i2c_bus = busio.I2C(board.SCL, board.SDA)
+
+# Initialize two INA219 sensors
+ina1 = INA219(i2c_bus, address=0x40)  # First INA219
+ina2 = INA219(i2c_bus, address=0x41)  # Second INA219
+
+print("Reading voltage and current every 10 seconds. Press Ctrl+C to stop.")
+
+try:
+    while True:
+        # Read from INA1
+        bus_voltage_1 = ina1.bus_voltage
+        current_1 = ina1.current
+        power_1 = ina1.power
+
+        # Read from INA2
+        bus_voltage_2 = ina2.bus_voltage
+        current_2 = ina2.current
+        power_2 = ina2.power
+
+        # Print readings 
+        print(f"\n[Sensor 1] Voltage: {bus_voltage_1:.2f} V | Current: {current_1:.2f} mA | Power: {power_1:.2f} mW")
+        print(f"[Sensor 2] Voltage: {bus_voltage_2:.2f} V | Current: {current_2:.2f} mA | Power: {power_2:.2f} mW")
+
+        time.sleep(10)
+
+except KeyboardInterrupt:
+    print("Stopped by user.")
+
