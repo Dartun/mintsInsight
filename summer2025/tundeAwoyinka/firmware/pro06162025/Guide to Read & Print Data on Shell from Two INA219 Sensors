@@ -1,0 +1,55 @@
+%%%%% Guide to Read & Print Data on Shell from Two INA219 Sensors %%%%
+
+Step 1: Begin by accessing the root folder 
+          su teamlary   %% to access the root folder or working directory
+
+Step 2. What You Need Installed on the Raspberry Pi
+Run this once in terminal to install required Python libraries:
+
+        sudo apt update %% not really important
+        sudo apt install python3-pip -y   %% very important, this command will install python 
+        pip3 install adafruit-circuitpython-ina219    %% install this for CircuitPython-based i.e if 
+                                                            you're using adafruit-circuitpython-ina219 library
+        pip3 install --upgrade adafruit-circuitpython-ina219   %% to update the adafruit-circuitpython-ina219 library 
+        sudo pip3 install pi-ina219   %% install this if you're using Adafruit_Python_INA219 library, which uses 
+                                          the INA219(busnum=..., address=...) format — that’s a different older library (not CircuitPython-based).
+
+Step 3. I2C must be enabled
+Enable I2C on your Pi if you haven’t already, using:
+
+        sudo raspi-config
+
+Go to Interfacing Options
+Select I2C
+Choose Yes
+Then reboot.
+
+Step 4: Check if Sensors Are Detected
+Use this command to check I2C addresses:
+
+        i2cdetect -y 1
+
+Step 5: Create a Python Script to Print the Voltage & Current from Two INA219s by following this:
+
+i. Create the Python script file. In the terminal, run:
+
+        nano filename.py
+
+ii. Paste the full script( i.e your written python code for sensor reading) into Nano
+
+iii. Save the script after pasting in Nano, by pressing:
+
+      Ctrl + O → (write the file)
+      Enter → (confirm file name)
+      Ctrl + X → (exit Nano)
+
+iv. Run the script. Now in terminal, run:
+
+      python3 read_ina219.py    %% It will print voltage and current from both INA219 sensors every 10 seconds provided no error in code or library not found issues
+
+V. To edit the Script incase of error, run:
+      
+      nano filename.py  %% i.e same file name you use previously
+
+
+        
